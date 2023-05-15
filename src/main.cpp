@@ -65,13 +65,34 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, VBO);  
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    vw::Shader s{"simple_vertex.glsl"};
-    s.prepare();
+    vw::Shader vertex_shader{"simple_vertex.glsl", GL_VERTEX_SHADER};
+    vertex_shader.load_and_compile();
+    vw::Shader fragment_shader{"simple_fragment.glsl", GL_FRAGMENT_SHADER};
+    fragment_shader.load_and_compile();
+
+    unsigned int shader_program;
+    shader_program = glCreateProgram();
+    glAttachShader(shader_program, vertex_shader.get_object_id());
+    glAttachShader(shader_program, fragment_shader.get_object_id());
+    glLinkProgram(shader_program);
+
+    int success;
+    glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
+    if(!success) {
+        char log[512];
+        glGetProgramInfoLog(shader_program, 512, NULL, log);
+        std::cout << "[ERROR] Shader Program Linking failed" << std::endl << log << std::endl;
+        return -1; 
+    }   
+    std::cout << "[SUCCESS] Shader Program Linked" << std::endl;
+
+    glUseProgram(shader_program);
     
+    vertex_shader.gl_delete();
+    fragment_shader.gl_delete();
+
     while(!glfwWindowShouldClose(window))
     {
-        
-
         processInput(window);
         glfwSwapBuffers(window);
         glfwPollEvents();    

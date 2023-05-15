@@ -1,11 +1,10 @@
 # https://gl.developpez.com/tutoriel/outil/makefile/
 # https://makefiletutorial.com/#implicit-rules
-LIBS=-lGL -lX11 -lpthread -lXrandr -ldl -lglfw -lGLEW -lGLU 
+LIBS=-lGL -lX11 -lpthread -lXrandr -ldl -lglfw -lGLEW -lGLU
 GLWF=/usr/include/GLFW/glfw3.h
-SRC_DIR := ./src
-BUILD_DIR := ./build
+SRC_DIR :=./src
+BUILD_DIR :=./build
 TARGET_EXEC := program
-# CPP_FILES := $(wildcard $(SRC_DIR)/**.cpp)
 CPP_FILES := $(shell find $(SRC_DIR) -name '*.cpp')
 
 BUILD_CPP_FILES := $(CPP_FILES:%=$(BUILD_DIR)/%.o)
