@@ -8,6 +8,11 @@ namespace vw
     {
     }
 
+    Program::~Program() {
+        this->gl_delete_shaders();
+        glDeleteProgram(this->object_id);
+    }
+
     void Program::load_and_compile()
     {
         this->object_id = glCreateProgram();
@@ -29,10 +34,9 @@ namespace vw
         std::cout << "[SUCCESS] Shader Program Linked" << std::endl;
     }
 
-    void Program::gl_delete_shaders()
+    bool Program::gl_delete_shaders()
     {
-        this->vertex->gl_delete();
-        this->fragment->gl_delete();
+        return this->vertex->gl_delete() && this->fragment->gl_delete();
     }
 
     void Program::use()

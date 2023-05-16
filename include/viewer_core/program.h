@@ -10,8 +10,9 @@ namespace vw
 
     public:
         Program(Shader* vertex, Shader* fragment);
+        ~Program();
         void load_and_compile();
-        void gl_delete_shaders();
+        bool gl_delete_shaders();
         void use();
 
     };

@@ -16,7 +16,7 @@ namespace vw
         ~Shader();
 
         bool load_and_compile();
-        void gl_delete();
+        bool gl_delete();
 
         const std::string& get_filename() const;
         unsigned int get_object_id() const; 

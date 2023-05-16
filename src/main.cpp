@@ -121,7 +121,7 @@ int main()
     vw::Program program2{&vertex_shader, &fragment_shader_yellow};
     program2.load_and_compile();
     program2.gl_delete_shaders();
-
+    
     // program.gl_delete_shaders();
 
     // unsigned int shader_program;
@@ -174,7 +174,7 @@ int main()
 
     
     
-
+    
     while (!glfwWindowShouldClose(window))
     {
         glfwSwapBuffers(window);

@@ -16,10 +16,16 @@ namespace vw
         this->gl_delete();
     }
 
-    void Shader::gl_delete() {
-        glDeleteShader(this->object_id);
-        this->object_id = 0;
-    }
+    bool Shader::gl_delete()
+    {
+        if (this->object_id != 0)
+        {
+            glDeleteShader(this->object_id);
+            this->object_id = 0;
+            return true;
+        }
+        return false;
+    }   
 
     bool Shader::load_and_compile()
     {
