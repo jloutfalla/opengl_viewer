@@ -17,8 +17,8 @@ namespace vw
     }
 
     void Shader::gl_delete() {
-        glDeleteShader(this->shader_object_id);
-        this->shader_object_id = 0;
+        glDeleteShader(this->object_id);
+        this->object_id = 0;
     }
 
     bool Shader::load_and_compile()
@@ -41,19 +41,19 @@ namespace vw
         while (std::getline(fs, buffer))
             shader_program += buffer + "\n";
 
-        this->shader_object_id = glCreateShader(this->shader_type);
+        this->object_id = glCreateShader(this->shader_type);
 
         const auto shader_program_char = shader_program.c_str();
-        glShaderSource(this->shader_object_id, 1, &shader_program_char, NULL);
-        glCompileShader(this->shader_object_id);
+        glShaderSource(this->object_id, 1, &shader_program_char, NULL);
+        glCompileShader(this->object_id);
 
         int success;
-        glGetShaderiv(this->shader_object_id, GL_COMPILE_STATUS, &success);
+        glGetShaderiv(this->object_id, GL_COMPILE_STATUS, &success);
 
         if (!success)
         {
             char infoLog[512];
-            glGetShaderInfoLog(this->shader_object_id, 512, NULL, infoLog);
+            glGetShaderInfoLog(this->object_id, 512, NULL, infoLog);
             std::cout << "[ERROR] Shader Compilation Failed" << std::endl
                       << infoLog << std::endl;
         }
@@ -69,7 +69,7 @@ namespace vw
     }
     unsigned int Shader::get_object_id() const
     {
-        return this->shader_object_id;
+        return this->object_id;
     }
     bool Shader::get_is_loaded() const
     {

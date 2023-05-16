@@ -1,7 +1,6 @@
 # https://gl.developpez.com/tutoriel/outil/makefile/
 # https://makefiletutorial.com/#implicit-rules
 LIBS=-lGL -lX11 -lpthread -lXrandr -ldl -lglfw -lGLEW -lGLU
-GLWF=/usr/include/GLFW/glfw3.h
 SRC_DIR :=./src
 BUILD_DIR :=./build
 TARGET_EXEC := program
@@ -14,7 +13,7 @@ STD=-std=c++17
 
 $(BUILD_DIR)/$(TARGET_EXEC): $(BUILD_CPP_FILES)
 	echo $(CPP_FILES)
-	$(CXX) $(STD) $(BUILD_CPP_FILES) $(CPPFLAGS) $(CXXFLAGS) $(LIBS) -I$(INCLUDES) -L$(GLWF) -o $@ 
+	$(CXX) $(STD) $(BUILD_CPP_FILES) $(CPPFLAGS) $(CXXFLAGS) $(LIBS) -I$(INCLUDES)  -o $@ 
 
 $(BUILD_DIR)/%.cpp.o: %.cpp
 	mkdir -p $(dir $@)

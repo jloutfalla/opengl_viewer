@@ -7,7 +7,7 @@ namespace vw
     class Shader
     {
         std::string filename;
-        unsigned int shader_object_id{0};
+        unsigned int object_id{0};
         bool is_loaded{false};
         unsigned int shader_type;
 
