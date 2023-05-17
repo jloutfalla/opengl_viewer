@@ -39,7 +39,7 @@ namespace vw
         {
             std::cout << "[Error] Shader path does not exists :" << std::endl
                       << full_path_shader << std::endl;
-            return -1;
+            exit(-1);
         }
 
         std::fstream fs{full_path_shader};
@@ -60,8 +60,9 @@ namespace vw
         {
             char infoLog[512];
             glGetShaderInfoLog(this->object_id, 512, NULL, infoLog);
-            std::cout << "[ERROR] Shader Compilation Failed" << std::endl
+            std::cout << "[ERROR] Shader Compilation Failed '" << this->filename <<"'" << std::endl
                       << infoLog << std::endl;
+            exit(-1);
         }
 
         std::cout << "[SUCCESS] Shader '" << this->filename << "' loaded " << std::endl;

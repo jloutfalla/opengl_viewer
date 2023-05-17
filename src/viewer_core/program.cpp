@@ -1,19 +1,21 @@
 #include <GL/glew.h>
 
-#include "viewer_core/program.h"
+#include "viewer_core/shader_program.h"
 
 namespace vw
 {
-    Program::Program(Shader* vertex, Shader* fragment) : vertex(vertex), fragment(fragment)
+    ShaderProgram::ShaderProgram(Shader *vertex, Shader *fragment) : vertex(vertex), fragment(fragment)
     {
     }
 
-    Program::~Program() {
-        this->gl_delete_shaders();
+    ShaderProgram::~ShaderProgram()
+    {
+        this->vertex->gl_delete();
+        this->fragment->gl_delete();
         glDeleteProgram(this->object_id);
     }
 
-    void Program::load_and_compile()
+    void ShaderProgram::load_and_compile()
     {
         this->object_id = glCreateProgram();
         glAttachShader(this->object_id, this->vertex->get_object_id());
@@ -34,14 +36,23 @@ namespace vw
         std::cout << "[SUCCESS] Shader Program Linked" << std::endl;
     }
 
-    bool Program::gl_delete_shaders()
-    {
-        return this->vertex->gl_delete() && this->fragment->gl_delete();
-    }
-
-    void Program::use()
+    void ShaderProgram::use()
     {
         glUseProgram(this->object_id);
+    }
+
+    unsigned int ShaderProgram::get_object_id()
+    {
+        return this->object_id;
+    }
+
+    void ShaderProgram::set_unif_4f(const char *name, float x, float y, float z, float w)
+    {
+        int id = glGetUniformLocation(this->object_id, name);
+        if (id == -1)
+            std::cout << "[ERROR] uniform location '" << name << "' not found " << std::endl;
+
+        glUniform4f(id, x, y, z, w);
     }
 
 } // namespace vw
