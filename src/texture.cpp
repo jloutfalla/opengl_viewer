@@ -35,6 +35,12 @@ int main()
 {
     vw::Viewer viewer{800, 600}; 
     glfwSetKeyCallback(viewer.window, key_callback);
+
+    std::vector tex_coords{
+        0.0f, 0.0f,
+        1.0f, 0.0f,
+        0.5f, 1.0f,
+    };
     
     std::vector quad {
         // triangle 1
@@ -59,9 +65,9 @@ int main()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void *)0);  
     glEnableVertexAttribArray(0);
 
-    vw::Shader vertex_shader{"ray_marching.vs", GL_VERTEX_SHADER};
+    vw::Shader vertex_shader{"texture.vs", GL_VERTEX_SHADER};
     vertex_shader.load_and_compile();
-    vw::Shader fragment_shader{"ray_marching.fs", GL_FRAGMENT_SHADER};
+    vw::Shader fragment_shader{"texture.fs", GL_FRAGMENT_SHADER};
     fragment_shader.load_and_compile();
     vw::ShaderProgram program{&vertex_shader, &fragment_shader};
     program.load_and_compile();

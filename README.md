@@ -9,3 +9,4 @@ install glew, glfw, libmesa => dev et lib
     use something like a class that encapsulate the name, check only once for this ShaderProgram if name exists, then 
     make it easily accessible to change its value.
 - make it easier to pass shader program 
+- default key assignment
