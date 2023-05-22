@@ -35,6 +35,9 @@ all: $(BINS)
 .PHONY: bin
 bin: $(BUILD_DIR)/$(exec).out
 
+.PHONY: lib
+lib: $(BUILD_DIR)/$(LIB_NAME)
+
 .PHONY: run
 run: bin
 	$(BUILD_DIR)/$(exec).out
